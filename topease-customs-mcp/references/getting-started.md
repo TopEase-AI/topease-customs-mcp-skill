@@ -6,14 +6,23 @@
 
 用户要“一键调用”本 skill，至少需要满足以下条件：
 
-1. 已安装 `topease-customs-mcp` skill。安装方式可以是 skill 广场安装，也可以是把 skill 目录放入 Codex/客户端可发现的 skills 目录。
-2. 运行环境支持读取 skill 的 `agents/openai.yaml`，并支持其中声明的 MCP dependency。
+1. 已安装 `topease-customs-mcp` skill。安装方式可以是 skill 广场安装，也可以是把 skill 目录放入 Codex、ChatGPT、Claude Code 或其它客户端可发现的 skills 目录。
+2. 运行环境支持读取 skill 的 `agents/openai.yaml` 并支持其中声明的 MCP dependency，或已在客户端中手动配置 MCP server。
 3. MCP 客户端能访问公网地址 `https://mcp.topease.net/mcp`。
 4. 用户拥有 Tradee/TOPEASE MCP API key，并能把它配置为 MCP 请求头 `Authorization: Bearer <TOPEASE_API_KEY>`。
 5. Tradee 账户有访问 MCP 海关数据的权限和足够余额。若账户按余额计费，余额不足会导致查询失败或被拦截。
 6. 用户查询时至少提供一个有效过滤条件：企业名、产品关键词、HS 编码或国家/地区。
 
-如果运行环境不能自动读取 `agents/openai.yaml`，就不能真正“一键”接入 MCP；需要用户手动添加 MCP server 配置。
+如果运行环境不能自动读取 `agents/openai.yaml`，就不能真正“一键”接入 MCP；需要用户手动添加 MCP server 配置。Claude Code 支持目录式 custom skill（`SKILL.md` + references/scripts），但 MCP server 仍建议单独配置。
+
+## Claude Code 使用说明
+
+Claude Code 可以使用这个 skill，但要区分两件事：
+
+- skill 本体：把 `topease-customs-mcp/` 目录放到 Claude Code 可发现的 skills 目录，Claude Code 即可读取 `SKILL.md`、`references/` 和 `scripts/`。
+- MCP 数据连接：把 `topease-customs-data` MCP server 配到 Claude Code 的 MCP 配置里，并提供 Tradee/TOPEASE MCP API key。
+
+如果 Claude Code 已能识别 skill，但调用时提示没有 `search_customs_data` 工具，通常是 MCP server 没有配置或没有鉴权，而不是 skill 文件本身损坏。
 
 ## 推荐调用方式
 

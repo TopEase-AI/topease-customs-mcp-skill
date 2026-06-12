@@ -1,12 +1,12 @@
 # TOPEASE 海关数据 MCP Skill
 
-这是一个面向 Codex/ChatGPT 的 skill，用于通过 TOPEASE/Tradee 海关数据 MCP 查询全球进出口贸易记录。适合查询产品关键词、HS 编码、企业名、国家/地区维度下的买家、供应商、进口商、出口商和出货样本。
+这是一个面向 Codex、ChatGPT、Claude Code 等支持 Agent Skills / Custom Skills 的客户端的 skill，用于通过 TOPEASE/Tradee 海关数据 MCP 查询全球进出口贸易记录。适合查询产品关键词、HS 编码、企业名、国家/地区维度下的买家、供应商、进口商、出口商和出货样本。
 
 ## 一键调用需要满足什么条件
 
 要让这个 skill 真正“一键调用”海关数据，需要同时满足：
 
-1. 当前客户端支持 Codex/ChatGPT skills。
+1. 当前客户端支持 Agent Skills / Custom Skills，例如 Codex、ChatGPT 或 Claude Code。
 2. 已安装本 skill：`topease-customs-mcp`。
 3. 当前客户端支持读取 `agents/openai.yaml` 中声明的 MCP dependency，或已经手动配置 MCP server。
 4. 当前网络可以访问 `https://mcp.topease.net/mcp`。
@@ -14,7 +14,11 @@
 6. MCP 请求携带鉴权：`Authorization: Bearer <TOPEASE_API_KEY>`。
 7. Tradee 账号有 MCP 海关数据权限和足够余额。
 
-如果客户端不支持自动读取 `agents/openai.yaml`，需要手动添加 MCP 配置。见下方“手动配置 MCP”。
+如果客户端不支持自动读取 `agents/openai.yaml`，需要手动添加 MCP 配置。Claude Code 支持目录式 custom skill（`SKILL.md` + references/scripts），但是否自动读取 `agents/openai.yaml` 取决于具体运行环境；稳妥做法是在 Claude Code 里单独配置 `topease-customs-data` MCP server。见下方“手动配置 MCP”。
+
+### Claude Code 说明
+
+Claude Code 可以使用这个 skill 目录。把 `topease-customs-mcp/` 放到 Claude Code 可发现的 skills 目录后，Claude Code 可读取 `SKILL.md`、`references/` 和 `scripts/`。要真正查询海关数据，还需要把 TOPEASE MCP server 配到 Claude Code 的 MCP 配置里，并提供 `TOPEASE_MCP_API_KEY` 或 `Authorization: Bearer <TOPEASE_API_KEY>`。
 
 ## 如何调用
 
