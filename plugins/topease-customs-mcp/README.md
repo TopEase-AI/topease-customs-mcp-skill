@@ -26,3 +26,16 @@ export TOPEASE_MCP_API_KEY="trdmcp_live_xxx"
 ```
 
 如果 skill 可用但提示没有 `search_customs_data` 工具，请检查 `.mcp.json` 是否已被 Claude Code 加载，以及 `TOPEASE_MCP_API_KEY` 是否有效。
+
+## 单名 Skill
+
+通过 Claude Code plugin marketplace 安装时，Claude Code 会用插件名给 skill 加命名空间，界面里可能显示为 `topease-customs-mcp:topease-customs-mcp`。这是 Claude Code 的插件隔离规则。
+
+如果只想显示 `topease-customs-mcp`，请改用 custom skill 安装：
+
+```bash
+mkdir -p ~/.claude/skills
+git clone https://github.com/TopEase-AI/topease-customs-mcp-skill.git /tmp/topease-customs-mcp-skill
+rm -rf ~/.claude/skills/topease-customs-mcp
+cp -R /tmp/topease-customs-mcp-skill/topease-customs-mcp ~/.claude/skills/topease-customs-mcp
+```

@@ -119,6 +119,17 @@ export TOPEASE_MCP_API_KEY="trdmcp_live_xxx"
 
 说明：Claude Code 插件可以安装 skill 和声明 MCP server，但用户仍需要自己提供 Tradee/TOPEASE MCP API key。
 
+如果你希望 Claude Code 里只显示单名 skill：`topease-customs-mcp`，不要用 plugin marketplace 安装，直接安装为 Claude Code custom skill：
+
+```bash
+mkdir -p ~/.claude/skills
+git clone https://github.com/TopEase-AI/topease-customs-mcp-skill.git /tmp/topease-customs-mcp-skill
+rm -rf ~/.claude/skills/topease-customs-mcp
+cp -R /tmp/topease-customs-mcp-skill/topease-customs-mcp ~/.claude/skills/topease-customs-mcp
+```
+
+然后重启 Claude Code。此方式只安装 skill 本体，不会自动安装 `.mcp.json`，仍需单独配置 MCP server 或设置 `TOPEASE_MCP_API_KEY`。
+
 ## 获取 MCP Key
 
 1. 打开 [Tradee 平台](https://tradee.topease.net/)。
