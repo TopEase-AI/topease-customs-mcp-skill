@@ -1,0 +1,22 @@
+{
+  "name": "topease-agent-skills",
+  "version": "0.1.0",
+  "description": "TOPEASE 面向 Agent Skills 和 Claude Code 的插件目录。",
+  "metadata": {
+    "description": "TOPEASE 面向 Agent Skills 和 Claude Code 的插件目录。"
+  },
+  "owner": {
+    "name": "TOPEASE AI",
+    "url": "https://github.com/TopEase-AI"
+  },
+  "plugins": [
+    {
+      "name": "topease-customs-mcp",
+      "description": "TOPEASE 海关数据 MCP Skill，用于在 Claude Code 中查询全球海关贸易记录。",
+      "source": "./plugins/topease-customs-mcp",
+      "version": "0.1.0",
+      "category": "productivity",
+      "keywords": ["mcp", "customs-data", "tradee", "agent-skills"]
+    }
+  ]
+}

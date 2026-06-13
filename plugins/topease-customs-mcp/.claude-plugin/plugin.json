@@ -1,0 +1,9 @@
+{
+  "name": "topease-customs-mcp",
+  "version": "0.1.0",
+  "description": "TOPEASE 海关数据 MCP Skill，支持在 Claude Code 中把自然语言贸易查询转换为海关数据 MCP 调用。",
+  "author": {
+    "name": "TOPEASE AI",
+    "url": "https://github.com/TopEase-AI"
+  }
+}

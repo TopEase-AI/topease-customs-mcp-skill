@@ -9,7 +9,7 @@
 [![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/topease020/topease-customs-mcp-server)
 [![Tradee](https://img.shields.io/badge/Tradee-tradee.topease.net-orange)](https://tradee.topease.net/)
 
-[快速开始](#快速开始) · [获取 MCP Key](#获取-mcp-key) · [手动配置 MCP](#手动配置-mcp) · [Claude Code](#claude-code) · [排障](#排障)
+[快速开始](#快速开始) · [Claude Code 插件](#claude-code-插件) · [获取 MCP Key](#获取-mcp-key) · [手动配置 MCP](#手动配置-mcp) · [分发平台](#分发平台) · [排障](#排障)
 
 </div>
 
@@ -75,6 +75,49 @@ topease-customs-mcp/
 ```text
 帮我找墨西哥 brake pad 的进口买家线索。
 ```
+
+## Claude Code 插件
+
+本仓库同时可作为 Claude Code plugin marketplace 使用：
+
+```bash
+claude plugin marketplace add TopEase-AI/topease-customs-mcp-skill
+claude plugin install topease-customs-mcp@topease-agent-skills
+```
+
+插件目录位于：
+
+```text
+plugins/topease-customs-mcp/
+├── .claude-plugin/plugin.json
+├── .mcp.json
+├── README.md
+└── skills/topease-customs-mcp/
+```
+
+使用前在本机配置 MCP key：
+
+```bash
+export TOPEASE_MCP_API_KEY="trdmcp_live_xxx"
+```
+
+`.mcp.json` 会通过环境变量生成请求头：
+
+```json
+{
+  "mcpServers": {
+    "topease-customs-data": {
+      "type": "http",
+      "url": "https://mcp.topease.net/mcp",
+      "headers": {
+        "Authorization": "Bearer ${TOPEASE_MCP_API_KEY}"
+      }
+    }
+  }
+}
+```
+
+说明：Claude Code 插件可以安装 skill 和声明 MCP server，但用户仍需要自己提供 Tradee/TOPEASE MCP API key。
 
 ## 获取 MCP Key
 
@@ -200,7 +243,17 @@ MCP 工具名：`search_customs_data`
 
 ```text
 .
+├── .claude-plugin/
+│   └── marketplace.json
 ├── README.md
+├── plugins/
+│   └── topease-customs-mcp/
+│       ├── .claude-plugin/
+│       │   └── plugin.json
+│       ├── .mcp.json
+│       ├── README.md
+│       └── skills/
+│           └── topease-customs-mcp/
 └── topease-customs-mcp/
     ├── SKILL.md
     ├── agents/
@@ -211,6 +264,15 @@ MCP 工具名：`search_customs_data`
     └── scripts/
         └── generate_mcp_config.py
 ```
+
+## 分发平台
+
+| 平台 | 当前可提交内容 | 说明 |
+| --- | --- | --- |
+| OpenAI / Codex Agent Skills | `topease-customs-mcp/` | `SKILL.md` 是核心文件，`agents/openai.yaml` 提供 OpenAI/Codex 元数据和 MCP dependency |
+| Claude Code plugin marketplace | 本仓库根目录 | `.claude-plugin/marketplace.json` 指向 `plugins/topease-customs-mcp/` |
+| Smithery / Glama / PulseMCP | MCP server 仓库 | 这些平台主要收录 MCP server，建议提交 [TopEase-AI/topease-customs-mcp-server](https://github.com/TopEase-AI/topease-customs-mcp-server) |
+| mcpservers.org / Agent Skills Library | skill 仓库和 MCP server 仓库 | 可分别提交本仓库和 MCP server 仓库，覆盖 skill 与 MCP 两类入口 |
 
 ## 排障
 
@@ -224,5 +286,5 @@ MCP 工具名：`search_customs_data`
 ## 相关链接
 
 - Tradee 平台：[https://tradee.topease.net/](https://tradee.topease.net/)
-- TOPEASE Customs MCP Server：[topease020/topease-customs-mcp-server](https://github.com/topease020/topease-customs-mcp-server)
+- TOPEASE Customs MCP Server：[TopEase-AI/topease-customs-mcp-server](https://github.com/TopEase-AI/topease-customs-mcp-server)
 - MCP endpoint：`https://mcp.topease.net/mcp`
